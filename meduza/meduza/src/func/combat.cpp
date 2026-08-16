@@ -218,6 +218,12 @@ static void triggerbot_tick(
 
     float dt = ImGui::GetIO().DeltaTime;
 
+    // Touch Trigger check: если включён Touch Trigger, срабатывает только при нажатии на экран
+    bool touch_active = ImGui::GetIO().MouseDown[0];
+    if (cfg::combat::touch_trigger && !touch_active) {
+        can_trigger = false;
+    }
+
     if (can_trigger) {
         if (!pulsing) {
             timer += dt;
@@ -336,6 +342,23 @@ void combat::aimbot_tick(uint64_t lp) {
     float        best_dist3d = 0.f;
     bool         found    = false;
 
+    // Сохраняем исходные углы камеры до аиминга (для Back Camera)
+    static float pre_aim_pitch = 0.f;
+    static float pre_aim_yaw   = 0.f;
+    static bool  was_aiming    = false;
+
+    // Touch Aim check: если включён Touch Aim, аимбот активируется только при таче экрана
+    bool is_touching = ImGui::GetIO().MouseDown[0];
+    if (cfg::combat::touch_aim && !is_touching) {
+        if (cfg::combat::back_camera && was_aiming) {
+            wpm<float>(AimingData + oxorany(OFF_AIMDATA_PITCH), pre_aim_pitch);
+            wpm<float>(AimingData + oxorany(OFF_AIMDATA_YAW),   pre_aim_yaw);
+            was_aiming = false;
+        }
+        set_status("x", "Waiting for touch", 0.f, false);
+        return;
+    }
+
     for (int i = 0; i < PlayerCount; i++) {
         uint64_t Player = rpm<uint64_t>(
             ListBuffer + oxorany(OFF_LIST_ENTRY_BASE) +
@@ -346,7 +369,8 @@ void combat::aimbot_tick(uint64_t lp) {
         if (pt == static_cast<uint8_t>(LocalTeam)) continue;
         if (player::health(Player) <= 0) continue;
 
-        if (cfg::combat::aimbot_visible) {
+        // Если включён Autowall, игнорируем проверку видимости через стены
+        if (cfg::combat::aimbot_visible && !cfg::combat::autowall) {
             if (!is_visible(Player)) continue;
         }
 
@@ -372,17 +396,32 @@ void combat::aimbot_tick(uint64_t lp) {
         float ddy = sc.y - center.y;
         float d   = sqrtf(ddx*ddx + ddy*ddy);
 
-        if (d <= radius && d < best_d) {
-            best_d      = d;
-            best_pos    = target_pos;
-            best_dist3d = dist3d;
-            found       = true;
+        // Если включён aim_360, игнорируем экранный FOV и берем лучшую цель в круге 360
+        if (cfg::combat::aim_360 || d <= radius) {
+            if (d < best_d) {
+                best_d      = d;
+                best_pos    = target_pos;
+                best_dist3d = dist3d;
+                found       = true;
+            }
         }
     }
 
     if (!found) {
+        // Если была включена функция Back Camera и цель потеряна, возвращаем углы обзора
+        if (cfg::combat::back_camera && was_aiming) {
+            wpm<float>(AimingData + oxorany(OFF_AIMDATA_PITCH), pre_aim_pitch);
+            wpm<float>(AimingData + oxorany(OFF_AIMDATA_YAW),   pre_aim_yaw);
+            was_aiming = false;
+        }
         set_status("x", "No target in FOV", 0.f, false);
         return;
+    }
+
+    if (!was_aiming) {
+        pre_aim_pitch = current_pitch;
+        pre_aim_yaw   = current_yaw;
+        was_aiming    = true;
     }
 
     const char* bone_label = (cfg::combat::aimbot_hitbox == 1) ? "Bone" : "Head";

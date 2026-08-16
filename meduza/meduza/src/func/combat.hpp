@@ -77,6 +77,13 @@ namespace combat {
     inline float trigger_delay        = 0.05f;
     inline float trigger_range        = 30.0f;
     inline bool  trigger_visible_only = true;
+
+    // Новые функции
+    inline bool  touch_aim            = false;  // Аимбот только при касании
+    inline bool  touch_trigger        = false;  // Триггер только при касании
+    inline bool  autowall             = false;  // Стрельба/Аим через стены
+    inline bool  aim_360              = false;  // Аимбот 360
+    inline bool  back_camera          = false;  // Возврат камеры в исходную позицию
 } // namespace combat
 } // namespace cfg
 

@@ -149,6 +149,11 @@ namespace esp {
     inline ImVec4 snapline_head_col = ImVec4(225/255.f, 144/255.f, 144/255.f, 1.f);
     inline bool   snapline_head_rgb = false;
 
+    // ── Bullet Traces ────────────────────────────────────────
+    inline bool   bullet_trace      = false;
+    inline ImVec4 bullet_trace_col  = ImVec4(1.f, 0.2f, 0.2f, 1.f);
+    inline float  bullet_trace_time = 2.0f;
+
     // ── Armor Bar (справа от бокса) ───────────────────────────
     inline bool   armor_bar         = false;
     inline ImVec4 armor_bar_col     = ImVec4(0.2f, 0.4f, 1.f, 1.f);

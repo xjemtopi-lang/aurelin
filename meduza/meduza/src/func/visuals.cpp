@@ -2025,6 +2025,20 @@ void visuals::draw() {
         dhit_zone    (dl, r);
         footprint_push(Player, PlayerPos);
 
+        // Bullet traces logic: если стреляет, добавляем трассер от ствола к цели
+        if (cfg::esp::bullet_trace) {
+            Vector3 gun_pos(PlayerPos.x, PlayerPos.y + 1.2f, PlayerPos.z);
+            Vector3 hit_pos(LocalPosition.x, LocalPosition.y + 1.0f, LocalPosition.z);
+            ImVec2 p1, p2;
+            if (world_to_screen(gun_pos, ViewMatrix, p1) && world_to_screen(hit_pos, ViewMatrix, p2)) {
+                ImU32 trace_col = IM_COL32(
+                    (int)(cfg::esp::bullet_trace_col.x * 255),
+                    (int)(cfg::esp::bullet_trace_col.y * 255),
+                    (int)(cfg::esp::bullet_trace_col.z * 255), 180);
+                dl->AddLine(p1, p2, trace_col, 1.5f);
+            }
+        }
+
         if (cfg::esp::enemy_panel) {
             int ep_vis = player::visibility_state(Player);
             enemy_panel_push(name_str.c_str(), Health, Distance, ep_vis);

@@ -285,50 +285,38 @@ namespace ui::menu {
             begin_body_font();
 
             // ---------- AIMBOT ----------
-            // cfg::combat::aimbot — главный флаг; читается в combat.cpp:114,301
             ImGui::Checkbox("Enable Aimbot", &cfg::combat::aimbot);
             if (cfg::combat::aimbot) {
-                // cfg::combat::aimbot_hitbox — combat.cpp:379,402,439; 0=Head, 1=Bone
                 combo_from_vector("Target bone", &cfg::combat::aimbot_hitbox,
                     std::vector<const char*>{"Head", "Chest"});
 
-                // cfg::combat::aimbot_visible — combat.cpp:363 (проверка видимости кости)
-                ImGui::Checkbox("Visible only", &cfg::combat::aimbot_visible);
-
-                // cfg::combat::aimbot_allow_fallback — запасной вариант цели
+                ImGui::Checkbox("Visible only",     &cfg::combat::aimbot_visible);
+                ImGui::Checkbox("Touch Aim",        &cfg::combat::touch_aim);
+                ImGui::Checkbox("Autowall Aim",     &cfg::combat::autowall);
+                ImGui::Checkbox("360 Aim",          &cfg::combat::aim_360);
+                ImGui::Checkbox("Back Camera",      &cfg::combat::back_camera);
                 ImGui::Checkbox("Fallback to body", &cfg::combat::aimbot_allow_fallback);
 
-                // cfg::combat::aimbot_fov — combat.cpp:347,495; fov_radius_px()
-                ImGui::SliderFloat("FOV (deg)", &cfg::combat::aimbot_fov, 5.f, 180.f, "%.0f");
-
-                // cfg::combat::aimbot_smooth — combat.cpp:439
-                ImGui::SliderFloat("Smooth", &cfg::combat::aimbot_smooth, 1.f, 20.f, "%.1f");
-
-                // cfg::combat::aimbot_max_dist — combat.cpp:374
-                ImGui::SliderFloat("Max distance", &cfg::combat::aimbot_max_dist, 10.f, 500.f, "%.0f m");
+                ImGui::SliderFloat("FOV (deg)",     &cfg::combat::aimbot_fov, 5.f, 180.f, "%.0f");
+                ImGui::SliderFloat("Smooth",        &cfg::combat::aimbot_smooth, 1.f, 20.f, "%.1f");
+                ImGui::SliderFloat("Max distance",  &cfg::combat::aimbot_max_dist, 10.f, 500.f, "%.0f m");
 
                 draw_separator();
 
-                // cfg::combat::aimbot_fov_draw — combat.cpp:489,495 (круг FOV)
-                ImGui::Checkbox("Show FOV circle", &cfg::combat::aimbot_fov_draw);
-                // cfg::combat::aimbot_lock_line — combat.cpp:408 (линия к цели)
-                ImGui::Checkbox("Show lock line", &cfg::combat::aimbot_lock_line);
-                // cfg::combat::aimbot_lock_dot — combat.cpp:414 (точка на цели)
-                ImGui::Checkbox("Show lock dot", &cfg::combat::aimbot_lock_dot);
+                ImGui::Checkbox("Show FOV circle",  &cfg::combat::aimbot_fov_draw);
+                ImGui::Checkbox("Show lock line",   &cfg::combat::aimbot_lock_line);
+                ImGui::Checkbox("Show lock dot",    &cfg::combat::aimbot_lock_dot);
             }
 
             draw_separator();
 
             // ---------- TRIGGERBOT ----------
-            // cfg::combat::triggerbot — combat.cpp:166
             ImGui::Checkbox("Enable Triggerbot", &cfg::combat::triggerbot);
             if (cfg::combat::triggerbot) {
-                // cfg::combat::trigger_range — combat.cpp:211
+                ImGui::Checkbox("Touch Trigger",     &cfg::combat::touch_trigger);
                 ImGui::SliderFloat("Trigger range", &cfg::combat::trigger_range, 5.f, 80.f, "%.0f m");
-                // cfg::combat::trigger_delay — combat.cpp:238
                 ImGui::SliderFloat("Trigger delay", &cfg::combat::trigger_delay, 0.f, 0.5f, "%.2f s");
-                // cfg::combat::trigger_visible_only — combat.cpp:200
-                ImGui::Checkbox("Visible only", &cfg::combat::trigger_visible_only);
+                ImGui::Checkbox("Visible only",     &cfg::combat::trigger_visible_only);
             }
 
             draw_separator();
@@ -368,6 +356,7 @@ namespace ui::menu {
             ImGui::Checkbox("Health bar",        &cfg::esp::health);
             ImGui::Checkbox("Distance",          &cfg::esp::distance);
             ImGui::Checkbox("Snapline head",     &cfg::esp::snapline_head);
+            ImGui::Checkbox("Bullet Traces",     &cfg::esp::bullet_trace);
             ImGui::Checkbox("Hit log",           &cfg::esp::hitlog);
             ImGui::Checkbox("Offscreen Arrows",  &cfg::esp::offscreen);
             ImGui::Checkbox("Danger Zone Pulse", &cfg::esp::danger_zone);
