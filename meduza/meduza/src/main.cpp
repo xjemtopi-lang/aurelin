@@ -26,7 +26,7 @@
 #include <chrono>
 
 static void print_status(const char* status) {
-    printf(oxorany("\033[2J\033[H\033[1;38;2;162;144;225m[@nnrpg]\033[0m \033[1;37m%s\033[0m\n"), status);
+    printf(oxorany("\033[2J\033[H\033[1;38;2;162;144;225m[Aurelin]\033[0m \033[1;37m%s\033[0m\n"), status);
 }
 
 static void launch_standoff() {

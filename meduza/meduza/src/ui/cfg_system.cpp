@@ -215,7 +215,7 @@ namespace {
     }
 
     static void make_path(int slot, char* out, size_t size) {
-        std::snprintf(out, size, "/data/local/tmp/magaisanware_slot%d.cfg", slot);
+        std::snprintf(out, size, "/data/local/tmp/aurelin_slot%d.cfg", slot);
     }
 
     static void sync_gfx_flags() {
@@ -285,7 +285,7 @@ bool save_id(int slot) {
     FILE* fp = fopen(path, "w");
     if (!fp) { set_status("save failed: cannot open file"); return false; }
 
-    fprintf(fp, "# magaisanware.wtf config slot %d\n", slot);
+    fprintf(fp, "# aurelin.wtf config slot %d\n", slot);
     for (size_t i = 0; i < CFG_COUNT; ++i)
         save_entry(fp, g_entries[i]);
 
