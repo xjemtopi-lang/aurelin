@@ -54,59 +54,56 @@ namespace ui::menu {
         ImGuiStyle& style = ImGui::GetStyle();
         ImGui::StyleColorsDark();
 
+        // macOS Liquid Glass Styling
         style.WindowBorderSize    = 1.f;
         style.ChildBorderSize     = 1.f;
         style.FrameBorderSize     = 1.f;
-        style.WindowRounding      = 0.f;
-        style.ChildRounding       = 0.f;
-        style.FrameRounding       = 0.f;
-        style.PopupRounding       = 0.f;
-        style.ScrollbarRounding   = 0.f;
-        style.GrabRounding        = 0.f;
+        style.WindowRounding      = 14.f; // Smooth macOS window corners
+        style.ChildRounding       = 10.f; // Rounded liquid glass sections
+        style.FrameRounding       = 6.f;  // Smooth widgets
+        style.PopupRounding       = 10.f;
+        style.ScrollbarRounding   = 8.f;
+        style.GrabRounding        = 6.f;
 
-        style.Colors[ImGuiCol_Text]                = ImVec4(0.91f, 0.91f, 0.91f, 1.00f);
-        style.Colors[ImGuiCol_TextDisabled]        = ImVec4(0.60f, 0.60f, 0.60f, 1.00f);
-        style.Colors[ImGuiCol_WindowBg]            = ImVec4(0.066f, 0.059f, 0.141f, 1.00f);
-        style.Colors[ImGuiCol_ChildBg]             = ImVec4(0.098f, 0.086f, 0.208f, 1.00f);
-        style.Colors[ImGuiCol_PopupBg]             = ImVec4(0.066f, 0.059f, 0.141f, 0.98f);
-        style.Colors[ImGuiCol_Border]              = ImVec4(0.118f, 0.098f, 0.243f, 1.00f);
+        style.Colors[ImGuiCol_Text]                = ImVec4(0.96f, 0.97f, 0.98f, 1.00f);
+        style.Colors[ImGuiCol_TextDisabled]        = ImVec4(0.55f, 0.60f, 0.68f, 1.00f);
+        style.Colors[ImGuiCol_WindowBg]            = cfg::theme::night_mode
+                                                        ? ImVec4(0.05f, 0.07f, 0.11f, 0.85f)
+                                                        : ImVec4(0.08f, 0.10f, 0.16f, 0.80f);
+        style.Colors[ImGuiCol_ChildBg]             = ImVec4(0.11f, 0.14f, 0.20f, 0.50f); // Liquid Glass translucent
+        style.Colors[ImGuiCol_PopupBg]             = ImVec4(0.08f, 0.10f, 0.16f, 0.92f);
+        style.Colors[ImGuiCol_Border]              = ImVec4(1.00f, 1.00f, 1.00f, 0.12f); // Glass subtle border
         style.Colors[ImGuiCol_BorderShadow]        = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-        style.Colors[ImGuiCol_FrameBg]             = ImVec4(0.118f, 0.098f, 0.243f, 1.00f);
-        style.Colors[ImGuiCol_FrameBgHovered]      = ImVec4(0.157f, 0.125f, 0.294f, 1.00f);
-        style.Colors[ImGuiCol_FrameBgActive]       = ImVec4(0.106f, 0.078f, 0.220f, 1.00f);
-        style.Colors[ImGuiCol_TitleBg]             = ImVec4(0.066f, 0.059f, 0.141f, 1.00f);
-        style.Colors[ImGuiCol_TitleBgActive]       = ImVec4(0.761f, 0.090f, 0.314f, 1.00f);
-        style.Colors[ImGuiCol_MenuBarBg]           = ImVec4(0.066f, 0.059f, 0.141f, 1.00f);
-        style.Colors[ImGuiCol_ScrollbarBg]         = ImVec4(0.066f, 0.059f, 0.141f, 1.00f);
-        style.Colors[ImGuiCol_ScrollbarGrab]       = ImVec4(0.118f, 0.098f, 0.243f, 1.00f);
-        style.Colors[ImGuiCol_ScrollbarGrabHovered]= ImVec4(0.157f, 0.125f, 0.294f, 1.00f);
-        style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.106f, 0.078f, 0.220f, 1.00f);
-        style.Colors[ImGuiCol_CheckMark]           = ImVec4(0.820f, 0.290f, 0.490f, 1.00f);
-        style.Colors[ImGuiCol_SliderGrab]          = ImVec4(0.820f, 0.290f, 0.490f, 1.00f);
-        style.Colors[ImGuiCol_SliderGrabActive]    = ImVec4(0.761f, 0.090f, 0.314f, 1.00f);
-        style.Colors[ImGuiCol_Button]              = ImVec4(0.118f, 0.098f, 0.243f, 1.00f);
-        style.Colors[ImGuiCol_ButtonHovered]       = ImVec4(0.157f, 0.125f, 0.294f, 1.00f);
-        style.Colors[ImGuiCol_ButtonActive]        = ImVec4(0.106f, 0.078f, 0.220f, 1.00f);
-        style.Colors[ImGuiCol_Header]              = ImVec4(0.118f, 0.098f, 0.243f, 1.00f);
-        style.Colors[ImGuiCol_HeaderHovered]       = ImVec4(0.157f, 0.125f, 0.294f, 1.00f);
-        style.Colors[ImGuiCol_HeaderActive]        = ImVec4(0.106f, 0.078f, 0.220f, 1.00f);
-        style.Colors[ImGuiCol_Separator]           = ImVec4(0.118f, 0.098f, 0.243f, 1.00f);
-        style.Colors[ImGuiCol_ResizeGrip]          = ImVec4(0.118f, 0.098f, 0.243f, 1.00f);
-        style.Colors[ImGuiCol_ResizeGripHovered]   = ImVec4(0.157f, 0.125f, 0.294f, 1.00f);
-        style.Colors[ImGuiCol_ResizeGripActive]    = ImVec4(0.761f, 0.090f, 0.314f, 1.00f);
-        style.Colors[ImGuiCol_TextSelectedBg]      = ImVec4(0.761f, 0.090f, 0.314f, 0.35f);
-        style.Colors[ImGuiCol_ModalWindowDimBg]    = ImVec4(0.05f, 0.05f, 0.05f, 0.65f);
-        style.Colors[ImGuiCol_Tab]                 = ImVec4(0.066f, 0.059f, 0.141f, 1.00f);
-        style.Colors[ImGuiCol_TabHovered]          = ImVec4(0.157f, 0.125f, 0.294f, 1.00f);
-        style.Colors[ImGuiCol_TabSelected]         = ImVec4(0.761f, 0.090f, 0.314f, 1.00f);
-        style.Colors[ImGuiCol_TabDimmed]           = ImVec4(0.066f, 0.059f, 0.141f, 1.00f);
-        style.Colors[ImGuiCol_TabDimmedSelected]   = ImVec4(0.761f, 0.090f, 0.314f, 1.00f);
+        style.Colors[ImGuiCol_FrameBg]             = ImVec4(0.14f, 0.17f, 0.25f, 0.60f);
+        style.Colors[ImGuiCol_FrameBgHovered]      = ImVec4(0.20f, 0.25f, 0.36f, 0.70f);
+        style.Colors[ImGuiCol_FrameBgActive]       = ImVec4(0.00f, 0.48f, 1.00f, 0.50f);
+        style.Colors[ImGuiCol_TitleBg]             = ImVec4(0.05f, 0.07f, 0.11f, 0.85f);
+        style.Colors[ImGuiCol_TitleBgActive]       = ImVec4(0.00f, 0.48f, 1.00f, 0.85f);
+        style.Colors[ImGuiCol_MenuBarBg]           = ImVec4(0.05f, 0.07f, 0.11f, 0.85f);
+        style.Colors[ImGuiCol_ScrollbarBg]         = ImVec4(0.05f, 0.07f, 0.11f, 0.30f);
+        style.Colors[ImGuiCol_ScrollbarGrab]       = ImVec4(0.25f, 0.30f, 0.42f, 0.60f);
+        style.Colors[ImGuiCol_ScrollbarGrabHovered]= ImVec4(0.00f, 0.48f, 1.00f, 0.70f);
+        style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.00f, 0.48f, 1.00f, 0.90f);
+        style.Colors[ImGuiCol_CheckMark]           = ImVec4(0.00f, 0.48f, 1.00f, 1.00f); // macOS Blue accent
+        style.Colors[ImGuiCol_SliderGrab]          = ImVec4(0.00f, 0.48f, 1.00f, 1.00f);
+        style.Colors[ImGuiCol_SliderGrabActive]    = ImVec4(0.25f, 0.65f, 1.00f, 1.00f);
+        style.Colors[ImGuiCol_Button]              = ImVec4(0.14f, 0.18f, 0.26f, 0.60f);
+        style.Colors[ImGuiCol_ButtonHovered]       = ImVec4(0.00f, 0.48f, 1.00f, 0.65f);
+        style.Colors[ImGuiCol_ButtonActive]        = ImVec4(0.00f, 0.40f, 0.85f, 0.85f);
+        style.Colors[ImGuiCol_Header]              = ImVec4(0.14f, 0.18f, 0.26f, 0.60f);
+        style.Colors[ImGuiCol_HeaderHovered]       = ImVec4(0.00f, 0.48f, 1.00f, 0.65f);
+        style.Colors[ImGuiCol_HeaderActive]        = ImVec4(0.00f, 0.40f, 0.85f, 0.85f);
+        style.Colors[ImGuiCol_Separator]           = ImVec4(1.00f, 1.00f, 1.00f, 0.10f);
+        style.Colors[ImGuiCol_ResizeGrip]          = ImVec4(0.00f, 0.48f, 1.00f, 0.30f);
+        style.Colors[ImGuiCol_ResizeGripHovered]   = ImVec4(0.00f, 0.48f, 1.00f, 0.60f);
+        style.Colors[ImGuiCol_ResizeGripActive]    = ImVec4(0.00f, 0.48f, 1.00f, 0.90f);
+        style.Colors[ImGuiCol_TextSelectedBg]      = ImVec4(0.00f, 0.48f, 1.00f, 0.35f);
+        style.Colors[ImGuiCol_ModalWindowDimBg]    = ImVec4(0.02f, 0.03f, 0.05f, 0.75f);
 
-        // Аккуратные паддинги — чуть плотнее чем было
         style.WindowPadding = ImVec2(16.f, 16.f);
-        style.FramePadding  = ImVec2(8.f, 4.f);
-        style.ItemSpacing   = ImVec2(12.f, 10.f);  // было 15/15 — слишком разреженно
-        style.ScrollbarSize = 20.f;
+        style.FramePadding  = ImVec2(8.f, 5.f);
+        style.ItemSpacing   = ImVec2(12.f, 10.f);
+        style.ScrollbarSize = 14.f;
 
         // Шрифтовая иерархия:
         // fontBold   → заголовок меню + ватермарк (жирный)
@@ -136,19 +133,23 @@ namespace ui::menu {
 
         g_window = ImGui::GetCurrentWindow();
 
-        // Многослойная рамка — идентично оригиналу
-        for (int i = 0; i < 8; ++i) {
-            ImColor bc(0, 0, 0, 255);
-            if      (i == 1 || i == 7) bc = ImColor(55, 55, 55, 255);
-            else if (i == 0)            bc = ImColor(0,  0,  0,  255);
-            else                        bc = ImColor(35, 35, 35, 255);
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        ImVec2 wpos = ImGui::GetWindowPos();
+        ImVec2 wsz  = ImGui::GetWindowSize();
 
-            ImGui::GetWindowDrawList()->AddRect(
-                ImVec2(ImGui::GetWindowPos().x + (float)i, ImGui::GetWindowPos().y + (float)i),
-                ImVec2(ImGui::GetWindowPos().x + ImGui::GetWindowSize().x - (float)i,
-                       ImGui::GetWindowPos().y + ImGui::GetWindowSize().y - (float)i),
-                bc);
-        }
+        // macOS Liquid Glass Outer Glow & Border
+        dl->AddRect(wpos, ImVec2(wpos.x + wsz.x, wpos.y + wsz.y),
+                    IM_COL32(255, 255, 255, 45), 14.f, 0, 1.5f);
+        dl->AddRect(ImVec2(wpos.x + 1.f, wpos.y + 1.f), ImVec2(wpos.x + wsz.x - 1.f, wpos.y + wsz.y - 1.f),
+                    IM_COL32(0, 0, 0, 120), 13.f, 0, 1.f);
+
+        // macOS Top Window Control Dots (Red, Yellow, Green)
+        float dot_y = wpos.y + 22.f;
+        float dot_start_x = wpos.x + 24.f;
+        dl->AddCircleFilled(ImVec2(dot_start_x, dot_y), 6.f, IM_COL32(255, 95, 87, 255));        // Close
+        dl->AddCircleFilled(ImVec2(dot_start_x + 18.f, dot_y), 6.f, IM_COL32(255, 189, 46, 255)); // Minimize
+        dl->AddCircleFilled(ImVec2(dot_start_x + 36.f, dot_y), 6.f, IM_COL32(39, 201, 63, 255));  // Expand
+
         return true;
     }
 
@@ -359,14 +360,19 @@ namespace ui::menu {
     static void visuals_tab() {
         const ImVec2 child_size = content_half_size();
 
-        if (begin_section("esp", child_size)) {
+        if (begin_section("esp & indicators", child_size)) {
             begin_body_font();
-            ImGui::Checkbox("Box 2D",          &cfg::esp::box);
-            ImGui::Checkbox("Name",            &cfg::esp::name);
-            ImGui::Checkbox("Health bar",      &cfg::esp::health);
-            ImGui::Checkbox("Distance",        &cfg::esp::distance);
-            ImGui::Checkbox("Snapline head",   &cfg::esp::snapline_head);
-            ImGui::Checkbox("Hit log",         &cfg::esp::hitlog);
+            ImGui::Checkbox("Box 2D",            &cfg::esp::box);
+            ImGui::Checkbox("Skeleton",          &cfg::esp::skeleton);
+            ImGui::Checkbox("Name",              &cfg::esp::name);
+            ImGui::Checkbox("Health bar",        &cfg::esp::health);
+            ImGui::Checkbox("Distance",          &cfg::esp::distance);
+            ImGui::Checkbox("Snapline head",     &cfg::esp::snapline_head);
+            ImGui::Checkbox("Hit log",           &cfg::esp::hitlog);
+            ImGui::Checkbox("Offscreen Arrows",  &cfg::esp::offscreen);
+            ImGui::Checkbox("Danger Zone Pulse", &cfg::esp::danger_zone);
+            ImGui::Checkbox("Footprints Trail",  &cfg::esp::footprints);
+            ImGui::Checkbox("Device Tag",        &cfg::esp::device_tag);
             draw_separator();
             combo_from_vector("Box type", &cfg::esp::box_type,
                 std::vector<const char*>{"Full", "Corner"});
@@ -377,17 +383,25 @@ namespace ui::menu {
 
         ImGui::SameLine();
 
-        if (begin_section("colors & effects", child_size)) {
+        if (begin_section("chams & visual styles", child_size)) {
             begin_body_font();
-            color_control("Box 2D color",       &cfg::esp::box_col);
-            color_control("Name color",         &cfg::esp::name_col);
-            color_control("Health color",       &cfg::esp::health_col);
-            color_control("Distance color",     &cfg::esp::distance_col);
-            color_control("Snapline head col",  &cfg::esp::snapline_head_col);
+            ImGui::Checkbox("Chams Body",       &cfg::esp::chams_body);
+            if (cfg::esp::chams_body) {
+                ImGui::SliderFloat("Body Alpha", &cfg::esp::chams_body_alpha, 0.05f, 1.0f, "%.2f");
+                ImGui::Checkbox("Rainbow Body",  &cfg::esp::chams_body_rgb);
+                color_control("Chams Color",    &cfg::esp::chams_body_col);
+            }
             draw_separator();
-            ImGui::Checkbox("Death Particles",  &cfg::effects::death_particles);
+            ImGui::Checkbox("Hit Zone Highlight", &cfg::esp::hit_zone);
+            ImGui::Checkbox("Shadow ESP",         &cfg::esp::shadow_esp);
+            color_control("Box 2D Color",         &cfg::esp::box_col);
+            color_control("Skeleton Color",       &cfg::esp::skeleton_col);
+            color_control("Name Color",           &cfg::esp::name_col);
+            color_control("Offscreen Arrow Col",  &cfg::esp::offscreen_col);
+            draw_separator();
+            ImGui::Checkbox("Death Particles",    &cfg::effects::death_particles);
             if (cfg::effects::death_particles) {
-                color_control("Particle color", &cfg::effects::particle_col);
+                color_control("Particle Color",   &cfg::effects::particle_col);
             }
             end_body_font();
         }
@@ -576,7 +590,7 @@ namespace ui::menu {
     static void config_tab() {
         const ImVec2 child_size = content_half_size();
 
-        if (begin_section("configs", child_size)) {
+        if (begin_section("settings & theme", child_size)) {
             begin_body_font();
             char buffer[64];
             std::snprintf(buffer, sizeof(buffer), "Screen: %.0f x %.0f", g_sw, g_sh);
@@ -584,8 +598,8 @@ namespace ui::menu {
             std::snprintf(buffer, sizeof(buffer), "FPS: %.0f", ImGui::GetIO().Framerate);
             ImGui::TextUnformatted(buffer);
             draw_separator();
-            ImGui::TextDisabled("Конфиг-система в этом сорсе отсутствует,");
-            ImGui::TextDisabled("поэтому оставил инфо-блок и reset под visuals.");
+            ImGui::Checkbox("Night Mode (macOS Dark)", &cfg::theme::night_mode);
+            ImGui::SliderFloat("Glass Blur / Opacity", &cfg::theme::blur_strength, 0.3f, 1.0f, "%.2f");
             end_body_font();
         }
         end_section();
@@ -674,7 +688,7 @@ namespace ui::menu {
         ImDrawList* dl = ImGui::GetForegroundDrawList();
 
         char wm_text[64];
-        std::snprintf(wm_text, sizeof(wm_text), "tenmi.cc  |  %.0f fps", ImGui::GetIO().Framerate);
+        std::snprintf(wm_text, sizeof(wm_text), "aurelin.cc  |  %.0f fps", ImGui::GetIO().Framerate);
 
         ImVec2 text_size = wm_font->CalcTextSizeA(FONT_SIZE, FLT_MAX, 0.f, wm_text);
 
@@ -771,9 +785,8 @@ namespace ui::menu {
                 ImVec2(ImGui::GetWindowSize().x -
                        (ImGui::GetStyle().WindowPadding.x * 2.f), TITLE_HEIGHT))) {
 
-                const char* label = "tenmi.cc | written by swesws";
+                const char* label = "aurelin.cc | macOS Liquid Glass Edition";
 
-                // Используем fontBold для заголовка
                 if (g_font_title) ImGui::PushFont(g_font_title);
 
                 const ImVec2 ts = ImGui::CalcTextSize(label);
@@ -781,7 +794,7 @@ namespace ui::menu {
                     (ImGui::GetWindowPos().x + ImGui::GetWindowSize().x * 0.5f) - (ts.x * 0.5f),
                     (ImGui::GetWindowPos().y + ImGui::GetWindowSize().y * 0.5f) - (ts.y * 0.5f));
 
-                // Тень заголовка — глубина
+                // Тень заголовка
                 ImGui::GetWindowDrawList()->AddText(
                     ImVec2(lpos.x + 1.f, lpos.y + 1.f),
                     ImColor(0, 0, 0, (int)(180.f * g_alpha)), label);

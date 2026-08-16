@@ -225,4 +225,9 @@ namespace gfx {
     inline bool texture_potato = false;
 }
 
+namespace theme {
+    inline bool night_mode     = true;   // macOS Dark Liquid Glass
+    inline float blur_strength = 0.85f;  // Glass opacity factor
+}
+
 } // namespace cfg
